@@ -1,0 +1,24 @@
+Name,IC3D-Code,omim,orphacode,decade of diagnosis,primarily affected layer,recurrent erosions,corneal thinning,non progressive,inheritance,may be unilateral,microcysts,epithelial thickening,stroma: rings / stars,stroma: central snowflakes / lines,stroma: cloudy appearance,stroma: arcus,stroma: honeycomb,stroma: confluent geographic,stroma: pre decemetal haze,stromal crystals,diffuse stromal haze ,deep stromal diffuse deposits,irregular posterior corneal surface,beaten metal appearance of corneal surface,corneal steepening,tiny dots on the posterior corneal surface
+Map-dot-fingerprint dystrophy,EBMD,121820,,3,epi,y,n,y,NO,n,y,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n
+"Epithelial recurrent erosion dystrophy, Franceschetti",ERED,122400,,0,epi,y,n,n,AD,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n
+Posterior polymorphous corneal dystrophy,PPCD,"122000,  609140, 609141,  618031 ",,2,endo,n,y,y,AD,y,n,n,n,n,n,n,n,n,n,n,n,n,n,n,y,n
+Macular corneal dystrophy,MCD,217800,,2,"stro, endo",n,y,n,AR,n,n,n,n,y,y,n,n,n,n,n,y,n,n,n,n,n
+Subepithelial mucinous corneal dystrophy,SMCD,612867,,1,epi,n,n,n,AD,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n
+Meesmann epithelial corneal dystrophy,MECD,122100,98954,1,epi,y,n,n,AD,n,y,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n
+Lisch epithelial corneal dystrophy,LECD,300778,98955,3,epi,n,n,n,X-linked,n,y,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n
+Gelatinous drop- like corneal dystrophy,GDCD,204870,,2,epi,y,n,n,AR,n,n,y,n,n,n,n,n,n,n,n,n,n,n,n,n,n
+Lattice corneal dystrophy,LCD 1,122200,,1,stro,y,n,n,AD,n,n,n,n,y,n,n,n,n,n,n,n,n,n,n,n,n
+Granular corneal dystrophy,GCD 1,121900,,1,stro,y,y,n,AD,n,n,n,n,y,n,n,n,n,n,n,n,n,n,n,n,n
+Avellino,GCD 2,607541,,2,stro,y,y,n,AD,n,n,n,y,y,n,n,n,n,n,n,n,n,n,n,n,n
+Reis–Bücklers corneal dystrophy,RBCD,608470,,1,stro,y,y,n,AD,n,n,n,n,y,y,n,n,y,n,n,n,n,n,n,n,n
+Thiel–Behnke corneal dystrophy,TBCD,602082,,2,stro,y,y,n,AD,n,n,n,n,n,n,n,y,n,n,n,n,n,n,n,n,n
+Schnyder corneal dystrophy,SCD,21800,,3,stro,n,n,n,AD,n,n,n,n,n,n,y,n,n,n,y,n,n,n,n,n,n
+Fleck corneal dystrophy,FCD,121850,,1,stro,n,y,y,AD,n,n,n,n,y,n,n,n,n,n,n,n,n,n,n,n,n
+Posterior amorphous corneal dystrophy,PACD,612868,,0,stro,n,y,n,AD,n,n,n,n,n,n,n,n,n,y,n,n,y,n,n,y,n
+Central cloudy dystrophy of François,CCDF,217600,,2,stro,n,y,y,AD,n,n,n,n,n,n,n,n,n,y,n,n,n,n,n,n,n
+Pre-Descemet corneal dystrophy,PDCD,NA,,,stro,n,y,n,X-linked,n,n,n,n,n,n,n,n,n,y,n,n,n,n,n,n,n
+Congenital hereditary endothelial dystrophy,CHED,217700,,0,endo,n,y,n,AR,n,n,n,n,n,y,n,n,n,n,n,n,n,y,n,y,y
+Congenital stromal corneal dystrophy,CSCD,610048,,0,stro,n,y,n,AD,n,n,n,n,n,y,n,n,n,n,n,n,y,n,n,n,n
+X-linked endothelial corneal dystrophy,XLED,300779,,0,endo,n,y,n,X-linked,n,n,n,n,n,y,n,n,n,n,n,n,n,n,n,y,n
+Grayson–Wilbrandt corneal dystrophy,GWCD,NA,,1,,y,y,n,AD,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n
+Fuchs endothelial dystrophy,,,,4,endo,n,n,n,AD,n,n,n,n,n,n,n,n,n,n,n,y,n,n,y,n,n
