@@ -44,14 +44,13 @@ def create_df ():
     target_array
 
 
-    namen = list(daten_encoded.head(0))
+    namen = list(daten.head(0))
 
     namen = namen[4::]
 
-
-
-    X = daten_encoded[namen].values
     y = target_array
+
+    return (daten)
 
 
 
@@ -98,8 +97,13 @@ def write_main_page():
     myvariable3 = myvariabledict3[myvariables3]
 
     if myvariable3 == 'Endothelium':
+        daten = create_df()
+        daten1 = daten[daten['primarily affected layer'] == 'stro']
+        target = daten1['Name'].values
 
-        st.sucess ("So far possible solutions for your inputs are: {}")
+
+
+        st.success ("So far possible solutions for your inputs are: {}".format(target))
 
         myvariables = st.selectbox("Age of first time clinical appearance?",  list(myvariabledict.keys()))
         myvariable = myvariabledict[myvariables]
