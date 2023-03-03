@@ -31,7 +31,7 @@ def trcreate_df ():
     features = features[4::]
 
 
-        #Modifiziere Eingabe
+        #Modifiziere Eingabe +++
 
     for i in features:
         daten[i] = daten[i].replace('yes', i)
