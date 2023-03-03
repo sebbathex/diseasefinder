@@ -16,27 +16,43 @@ from collections import Counter
 
 
 
-def trcreate_df (): 
-        #Lade csv
+def create_df (): 
     daten = pd.read_csv('corneal_dystrophies - corneal_dystrophies _data Kopie(2).csv')
 
 
     daten = daten.fillna('unknown')
     daten = daten.replace('y', 'yes')
     daten = daten.replace('n', 'no')
-        #daten.head(5)
+            #daten.head(5)
 
 
     features = list(daten.head(0))
     features = features[4::]
 
 
-        #Modifiziere Eingabe +++
+            #Modifiziere Eingabe
 
     for i in features:
         daten[i] = daten[i].replace('yes', i)
         daten[i] = daten[i].replace('no', f'not_{i}')
         daten[i] = daten[i].replace('unknown', f'unknown_{i}')
+
+
+            
+    y = daten["Name"]
+    target_array = y.values
+    target_array
+
+
+    namen = list(daten_encoded.head(0))
+
+    namen = namen[4::]
+
+
+
+    X = daten_encoded[namen].values
+    y = target_array
+
 
 
 
@@ -82,6 +98,8 @@ def write_main_page():
     myvariable3 = myvariabledict3[myvariables3]
 
     if myvariable3 == 'Endothelium':
+
+        st.sucess ("So far possible solutions for your inputs are: {}")
 
         myvariables = st.selectbox("Age of first time clinical appearance?",  list(myvariabledict.keys()))
         myvariable = myvariabledict[myvariables]
