@@ -103,7 +103,7 @@ def write_main_page():
         liste1 = liste[1::]
         zufallswert = random.choice(liste1)
         unique_values = list(set(daten1[f'{zufallswert}']))
-        daten1 = daten1[1::]
+        daten1 = daten1.drop('Name', axis=1)
         
         #liste = daten1.columns.tolist()[4::]
 
