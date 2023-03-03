@@ -11,6 +11,7 @@ from sklearn.naive_bayes import CategoricalNB
 from sklearn.neural_network import MLPClassifier
 from sklearn import svm
 from collections import Counter
+import random
 #import s3fs
 
 
@@ -32,10 +33,10 @@ def create_df ():
 
             #Modifiziere Eingabe
 
-    for i in features:
-        daten[i] = daten[i].replace('yes', i)
-        daten[i] = daten[i].replace('no', f'not_{i}')
-        daten[i] = daten[i].replace('unknown', f'unknown_{i}')
+    #for i in features:
+    #    daten[i] = daten[i].replace('yes', i)
+    #    daten[i] = daten[i].replace('no', f'not_{i}')
+    #    daten[i] = daten[i].replace('unknown', f'unknown_{i}')
 
 
             
@@ -96,24 +97,65 @@ def write_main_page():
     myvariables3 = st.selectbox("Primarily affected layer?", list(myvariabledict3.keys()))
     myvariable3 = myvariabledict3[myvariables3]
 
+    nextone= []
+
     if myvariable3 == 'Endothelium':
+
+        
         daten = create_df()
-        daten1 = daten[daten['primarily affected layer'] == 'stro']
+        daten1 = daten[daten['primarily affected layer'] == 'endo']
+        target = daten1['Name'].values
+        liste = daten1.columns.tolist()
+        # Drop columns that have less than 3 unique values
+        daten1 = daten1.loc[:, daten1.nunique() >= 2]
+        liste = daten1.columns.tolist()[4::]
+
+
+        zufallswert = random.choice(liste)
+
+        #liste der einzelnen vorkommenden werte
+
+        unique_values = list(set(daten1[f'{zufallswert}']))
+
+        
+        selected_option = SelectBox(zufallswert, unique_values).render()
+
+        daten1 = daten[daten['primarily affected layer'] == 'endo']
+        daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
         target = daten1['Name'].values
 
 
 
         st.success ("So far possible solutions for your inputs are: {}".format(target))
 
-        myvariables = st.selectbox("Age of first time clinical appearance?",  list(myvariabledict.keys()))
-        myvariable = myvariabledict[myvariables]
+
+            #myvariables = st.selectbox("Age of first time clinical appearance?",  list(myvariabledict.keys()))
+            #myvariable = myvariabledict[myvariables]
+
+    elif myvariable3 == 'Epithelium':
+
+        daten1 = daten[daten['primarily affected layer'] == 'stro']
+        daten1 = daten[daten['primarily affected layer'] == 'stro']
+        target = daten1['Name'].values
+
+
+
+
+class SelectBox:
+    def __init__(self, label, options):
+        self.label = label
+        self.options = options
+
+    def render(self):
+        selected_option = st.selectbox(self.label, self.options)
+        return selected_option
+        
 
     
 
 
 
-
-    
+  
                     
 
     
