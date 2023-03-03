@@ -18,7 +18,7 @@ import random
 
 
 def create_df (): 
-    daten = pd.read_csv('corneal_dystrophies - corneal_dystrophies _data Kopie(2).csv')
+    daten = pd.read_csv('/Users/sebastianarens/Desktop/diseasefinder/diseasefinder/Kopie von corneal_dystrophies - corneal_dystrophies _data Kopie.csv')
 
 
     daten = daten.fillna('unknown')
@@ -97,46 +97,104 @@ def write_main_page():
     myvariables3 = st.selectbox("Primarily affected layer?", list(myvariabledict3.keys()))
     myvariable3 = myvariabledict3[myvariables3]
 
-    nextone= []
+    def reduce_dims (daten1):
+        daten1 = daten1.loc[:, daten1.nunique() >= 2]
+        liste = daten1.columns.tolist()
+        zufallswert = random.choice(liste)
+        unique_values = list(set(daten1[f'{zufallswert}']))
+        daten1 = daten1.drop('Name', axis=1)
+        
+        #liste = daten1.columns.tolist()[4::]
+
+        return (zufallswert, unique_values, daten1)
+        
 
     if myvariable3 == 'Endothelium':
 
         
         daten = create_df()
-        daten1 = daten[daten['primarily affected layer'] == 'endo']
+        daten1 = daten[daten['Primarily affected layer'] == 'endo']
         target = daten1['Name'].values
-        liste = daten1.columns.tolist()
-        # Drop columns that have less than 3 unique values
-        daten1 = daten1.loc[:, daten1.nunique() >= 2]
-        liste = daten1.columns.tolist()[4::]
 
+        while len(target) > 1 :
+        
+            zufallswert, unique_values, daten1 = reduce_dims(daten1)
 
-        zufallswert = random.choice(liste)
+            
+            selected_option = SelectBox(zufallswert, unique_values).render()
 
-        #liste der einzelnen vorkommenden werte
-
-        unique_values = list(set(daten1[f'{zufallswert}']))
+            daten1 = daten[daten['Primarily affected layer'] == 'endo']
+            daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
+            target2 = daten2['Name'].values
+            target = target2
 
         
-        selected_option = SelectBox(zufallswert, unique_values).render()
-
-        daten1 = daten[daten['primarily affected layer'] == 'endo']
-        daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
-        target = daten1['Name'].values
-
-
-
-        st.success ("So far possible solutions for your inputs are: {}".format(target))
+        st.success ("So far possible solutions for your inputs are: {}".format(target2))
 
 
             #myvariables = st.selectbox("Age of first time clinical appearance?",  list(myvariabledict.keys()))
             #myvariable = myvariabledict[myvariables]
 
     elif myvariable3 == 'Epithelium':
-
-        daten1 = daten[daten['primarily affected layer'] == 'stro']
-        daten1 = daten[daten['primarily affected layer'] == 'stro']
+        daten = create_df()
+        daten1 = daten[daten['Primarily affected layer'] == 'epi']
         target = daten1['Name'].values
+
+        while len(target) > 1 :
+        
+            zufallswert, unique_values, daten1 = reduce_dims(daten1)
+
+            
+            selected_option = SelectBox(zufallswert, unique_values).render()
+
+            daten1 = daten[daten['Primarily affected layer'] == 'epi']
+            daten2 = daten1[daten1[f'{zufallswert}'] == f'{selected_option}']
+            target2 = daten2['Name'].values
+            target = target2
+
+        
+        st.success ("So far possible solutions for your inputs are: {}".format(target2))
+
+    elif myvariable3 == 'Stroma':
+        daten = create_df()
+        daten1 = daten[daten['Primarily affected layer'] == 'stro']
+        target = daten1['Name'].values
+
+        while len(target) > 1 :
+        
+            zufallswert, unique_values, daten1 = reduce_dims(daten1)
+
+            
+            selected_option = SelectBox(zufallswert, unique_values).render()
+
+            daten1 = daten[daten['Primarily affected layer'] == 'stro']
+            daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
+            target2 = daten2['Name'].values
+            target = target2
+
+        
+        st.success ("So far possible solutions for your inputs are: {}".format(target2))    
+
+    elif myvariable3 == 'Stroma/Endothelium':
+        daten = create_df()
+        daten1 = daten[daten['Primarily affected layer'] == 'stro, endo']
+        target = daten1['Name'].values
+
+        while len(target) > 1 :
+        
+            zufallswert, unique_values, daten1 = reduce_dims(daten1)
+
+            
+            selected_option = SelectBox(zufallswert, unique_values).render()
+
+            daten1 = daten[daten['Primarily affected layer'] == 'stro, endo']
+            daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
+            target2 = daten2['Name'].values
+            target = target2
+
+        
+        st.success ("So far possible solutions for your inputs are: {}".format(target2))        
+       
 
 
 
