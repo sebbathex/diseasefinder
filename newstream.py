@@ -117,10 +117,11 @@ def write_main_page():
         target = daten1['Name'].values
 
         while len(target) > 1 :
+
         
             zufallswert, unique_values, daten1 = reduce_dims(daten1)
-
             
+
             selected_option = SelectBox(zufallswert, unique_values).render()
 
             daten1 = daten[daten['Primarily affected layer'] == 'endo']
