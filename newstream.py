@@ -18,7 +18,7 @@ import random
 
 
 def create_df (): 
-    daten = pd.read_csv('/Users/sebastianarens/Desktop/diseasefinder/diseasefinder/Kopie von corneal_dystrophies - corneal_dystrophies _data Kopie.csv')
+    daten = pd.read_csv('Kopie von corneal_dystrophies - corneal_dystrophies _data Kopie.csv')
 
 
     daten = daten.fillna('unknown')
@@ -127,6 +127,8 @@ def write_main_page():
             daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
             target2 = daten2['Name'].values
             target = target2
+            target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+
 
         
         st.success ("So far possible solutions for your inputs are: {}".format(target2))
@@ -151,6 +153,8 @@ def write_main_page():
             daten2 = daten1[daten1[f'{zufallswert}'] == f'{selected_option}']
             target2 = daten2['Name'].values
             target = target2
+            target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+
 
         
         st.success ("So far possible solutions for your inputs are: {}".format(target2))
@@ -171,6 +175,8 @@ def write_main_page():
             daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
             target2 = daten2['Name'].values
             target = target2
+            target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+
 
         
         st.success ("So far possible solutions for your inputs are: {}".format(target2))    
@@ -191,6 +197,7 @@ def write_main_page():
             daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
             target2 = daten2['Name'].values
             target = target2
+            target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
 
         
         st.success ("So far possible solutions for your inputs are: {}".format(target2))        
