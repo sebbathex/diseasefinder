@@ -100,9 +100,10 @@ def write_main_page():
     def reduce_dims (daten1):
         daten1 = daten1.loc[:, daten1.nunique() >= 2]
         liste = daten1.columns.tolist()
-        zufallswert = random.choice(liste)
+        liste1 = liste[1::]
+        zufallswert = random.choice(liste1)
         unique_values = list(set(daten1[f'{zufallswert}']))
-        daten1 = daten1.drop('Name', axis=1)
+        daten1 = daten1[1::]
         
         #liste = daten1.columns.tolist()[4::]
 
@@ -114,25 +115,36 @@ def write_main_page():
         
         daten = create_df()
         daten1 = daten[daten['Primarily affected layer'] == 'endo']
-        target = daten1['Name'].values
+        daten2 = daten1 = daten1[1::]
 
-        while len(target) > 1 :
+
+        target = daten1['Name'].values
+        daten1 = daten1.loc[:, daten1.nunique() >= 2]
+        liste = daten1.columns.tolist()
+        
 
         
-            zufallswert, unique_values, daten1 = reduce_dims(daten1)
+
+        while len(target) > 1:
+            list_of_selectboxes = []
+            list_of_labels = []
+            
+            for i in liste:
+                element = SelectBox(i, list(set(daten2[f'{i}']))).render()
+                list_of_selectboxes.append(element)
+                list_of_labels.append(i)
+
+            
+            for i in range(len(list_of_selectboxes)):
+                daten1 = daten1[daten1[f'{list_of_labels[i]}'] == f'{list_of_selectboxes[i]}']
+
+            target = daten1['Name'].values    
+
             
 
-            selected_option = SelectBox(zufallswert, unique_values).render()
-
-            daten1 = daten[daten['Primarily affected layer'] == 'endo']
-            daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
-            target2 = daten2['Name'].values
-            target = target2
-            target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
-
 
         
-        st.success ("So far possible solutions for your inputs are: {}".format(target2))
+        st.success ("So far possible solutions for your inputs are: {}".format(str(target)))
 
 
             #myvariables = st.selectbox("Age of first time clinical appearance?",  list(myvariabledict.keys()))
@@ -143,7 +155,7 @@ def write_main_page():
         daten1 = daten[daten['Primarily affected layer'] == 'epi']
         target = daten1['Name'].values
 
-        while len(target) > 1 :
+        while len(target) > 1:
         
             zufallswert, unique_values, daten1 = reduce_dims(daten1)
 
@@ -160,23 +172,29 @@ def write_main_page():
         
         st.success ("So far possible solutions for your inputs are: {}".format(target2))
 
+
+
     elif myvariable3 == 'Stroma':
         daten = create_df()
         daten1 = daten[daten['Primarily affected layer'] == 'stro']
         target = daten1['Name'].values
 
         while len(target) > 1 :
-        
+            list_of_selectboxes = []
+
             zufallswert, unique_values, daten1 = reduce_dims(daten1)
 
-            
-            selected_option = SelectBox(zufallswert, unique_values).render()
+            try:
+                selected_option = SelectBox(zufallswert, unique_values).render()
+                list_of_selectboxes.append(selected_option)
 
-            daten1 = daten[daten['Primarily affected layer'] == 'stro']
-            daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
-            target2 = daten2['Name'].values
-            target = target2
-            target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+                daten1 = daten[daten['Primarily affected layer'] == 'stro']
+                daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
+                target2 = daten2['Name'].values
+                target = target2
+                target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+            except:
+                pass
 
 
         
