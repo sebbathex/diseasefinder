@@ -100,10 +100,9 @@ def write_main_page():
     def reduce_dims (daten1):
         daten1 = daten1.loc[:, daten1.nunique() >= 2]
         liste = daten1.columns.tolist()
-        liste1 = liste[1::]
-        zufallswert = random.choice(liste1)
+        zufallswert = random.choice(liste)
         unique_values = list(set(daten1[f'{zufallswert}']))
-        daten1 = daten1.drop('Name', axis=1)
+        daten1 = daten1[1::]       #.drop('Name', axis=1)
         
         #liste = daten1.columns.tolist()[4::]
 
@@ -111,7 +110,7 @@ def write_main_page():
         
 
     if myvariable3 == 'Endothelium':
-
+        
         
         daten = create_df()
         daten1 = daten[daten['Primarily affected layer'] == 'endo']
@@ -135,13 +134,12 @@ def write_main_page():
                 list_of_labels.append(i)
 
             
-            for i in range(len(list_of_selectboxes)):
-                daten1 = daten1[daten1[f'{list_of_labels[i]}'] == f'{list_of_selectboxes[i]}']
+            selected_option = SelectBox(zufallswert, unique_values).render()
 
-            target = daten1['Name'].values    
-
-            
-
+            daten1 = daten[daten['Primarily affected layer'] == 'endo']
+            daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
+            target2 = daten2['Name'].values
+            target = target2
 
         
         st.success ("So far possible solutions for your inputs are: {}".format(str(target)))
