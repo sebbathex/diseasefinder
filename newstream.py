@@ -100,7 +100,8 @@ def write_main_page():
     def reduce_dims (daten1):
         daten1 = daten1.loc[:, daten1.nunique() >= 2]
         liste = daten1.columns.tolist()
-        zufallswert = random.choice(liste)
+        liste1 = liste[1::]
+        zufallswert = random.choice(liste1)
         unique_values = list(set(daten1[f'{zufallswert}']))
         daten1 = daten1[1::]       #.drop('Name', axis=1)
         
