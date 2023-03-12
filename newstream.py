@@ -103,11 +103,13 @@ def write_main_page():
         liste1 = liste[1::]
         zufallswert = random.choice(liste1)
         unique_values = list(set(daten1[f'{zufallswert}']))
-        daten1 = daten1[1::]       #.drop('Name', axis=1)
+        #daten1 = daten1[1::]       #.drop('Name', axis=1)
         
         #liste = daten1.columns.tolist()[4::]
 
         return (zufallswert, unique_values, daten1)
+    
+
         
 
     if myvariable3 == 'Endothelium':
@@ -115,7 +117,7 @@ def write_main_page():
         
         daten = create_df()
         daten1 = daten[daten['Primarily affected layer'] == 'endo']
-        daten2 = daten1 = daten1[1::]
+        daten2 = daten1[1::]
 
 
         target = daten1['Name'].values
@@ -124,26 +126,29 @@ def write_main_page():
         
 
         
-
-        while len(target) > 1:
+        while len(target) > 1 :
             list_of_selectboxes = []
-            list_of_labels = []
-            
-            for i in liste:
-                element = SelectBox(i, list(set(daten2[f'{i}']))).render()
-                list_of_selectboxes.append(element)
-                list_of_labels.append(i)
+            selected_options = {}
 
-            
-            selected_option = SelectBox(zufallswert, unique_values).render()
+            zufallswert, unique_values, daten1 = reduce_dims(daten1)
 
-            daten1 = daten[daten['Primarily affected layer'] == 'endo']
-            daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
-            target2 = daten2['Name'].values
-            target = target2
+            try:
+                selected_option = SelectBox(zufallswert, unique_values).render()
+                list_of_selectboxes.append(selected_option)
+
+                daten1 = daten[daten['Primarily affected layer'] == 'endo']
+                daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
+                target2 = daten2['Name'].values
+                target = target2
+                target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+            except:
+                pass
+
 
         
-        st.success ("So far possible solutions for your inputs are: {}".format(str(target)))
+        st.success ("So far possible solutions for your inputs are: {}".format(target2))  
+
+        
 
 
             #myvariables = st.selectbox("Age of first time clinical appearance?",  list(myvariabledict.keys()))
@@ -152,30 +157,6 @@ def write_main_page():
     elif myvariable3 == 'Epithelium':
         daten = create_df()
         daten1 = daten[daten['Primarily affected layer'] == 'epi']
-        target = daten1['Name'].values
-
-        while len(target) > 1:
-        
-            zufallswert, unique_values, daten1 = reduce_dims(daten1)
-
-            
-            selected_option = SelectBox(zufallswert, unique_values).render()
-
-            daten1 = daten[daten['Primarily affected layer'] == 'epi']
-            daten2 = daten1[daten1[f'{zufallswert}'] == f'{selected_option}']
-            target2 = daten2['Name'].values
-            target = target2
-            target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
-
-
-        
-        st.success ("So far possible solutions for your inputs are: {}".format(target2))
-
-
-
-    elif myvariable3 == 'Stroma':
-        daten = create_df()
-        daten1 = daten[daten['Primarily affected layer'] == 'stro']
         target = daten1['Name'].values
 
         while len(target) > 1 :
@@ -187,7 +168,7 @@ def write_main_page():
                 selected_option = SelectBox(zufallswert, unique_values).render()
                 list_of_selectboxes.append(selected_option)
 
-                daten1 = daten[daten['Primarily affected layer'] == 'stro']
+                daten1 = daten[daten['Primarily affected layer'] == 'epi']
                 daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
                 target2 = daten2['Name'].values
                 target = target2
@@ -197,29 +178,115 @@ def write_main_page():
 
 
         
-        st.success ("So far possible solutions for your inputs are: {}".format(target2))    
+        st.success ("So far possible solutions for your inputs are: {}".format(target2))  
 
-    elif myvariable3 == 'Stroma/Endothelium':
+    elif myvariable3 == 'Stroma':
         daten = create_df()
-        daten1 = daten[daten['Primarily affected layer'] == 'stro, endo']
+        daten1 = daten[daten['Primarily affected layer'] == 'stro']
         target = daten1['Name'].values
+        daten2 = daten1.loc[:, daten1.nunique() >= 2]
 
-        while len(target) > 1 :
-        
-            zufallswert, unique_values, daten1 = reduce_dims(daten1)
+        columns = daten2.columns.tolist()
+                # Create a dictionary to store options for each column
+        options_dict = {}
+
+        # Loop through each column and get the unique values
+        for col in columns:
+            options_dict[col] = daten2[col].unique().tolist()
+
+        # Create a dictionary to store selected options
+        selected_options = {}
+
+        # Loop through each column and create a dropdown menu
+        for col in columns:
+            selected_options[col] = st.selectbox(f"{col}", options_dict[col])
+
+
+        st.success(f'{selected_options["Name"]}')    
+
+
+
+       
+
 
             
-            selected_option = SelectBox(zufallswert, unique_values).render()
 
-            daten1 = daten[daten['Primarily affected layer'] == 'stro, endo']
-            daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
-            target2 = daten2['Name'].values
-            target = target2
-            target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+            # try:
+            #    selected_option = SelectBox(zufallswert, unique_values).render()
+            #    list_of_selectboxes.append(selected_option)
+
+            #    daten1 = daten[daten['Primarily affected layer'] == 'stro']
+            #     daten2 = daten[daten[f'{zufallswert}'] == f'{selected_option}']
+            #     target2 = daten2['Name'].values
+            #     target = target2
+            #     target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+            # except:
+            #    pass
+
 
         
-        st.success ("So far possible solutions for your inputs are: {}".format(target2))        
-       
+        #st.success ("So far possible solutions for your inputs are: {}".format(target2))  
+
+
+
+
+    elif myvariable3 == 'Endo/Stroma':
+        
+        daten = create_df()
+        daten1 = daten[daten['Primarily affected layer'] == 'stro']
+        st.write(daten1)
+        target = daten1['Name'].values
+
+            
+
+        
+
+        def get_options(data, column, selected_options):
+            options = data[column].unique().tolist()
+            for col, value in selected_options.items():
+                if col != column and value != "":
+                    options = data[data[col] == value][column].unique().tolist()
+            return options
+
+    # Upload the CSV file
+
+        
+
+        # Initialize the selected options
+        selected_options = {}
+        for col in daten1.columns:
+            selected_options[col] = ""
+
+        # Create a dropdown menu for each column
+        # Create a dropdown menu for each column
+        for col in daten1.columns:
+            options = get_options(daten1, col, selected_options)
+            if len(options) > 1:
+                selected_options[col] = st.selectbox(col, [""] + options, key=col)
+
+                # Update the options for the next dropdown menu based on the selected option for the previous dropdown menu
+                if selected_options[col] != "":
+                    for next_col in daten1.columns:
+                        if next_col != col:
+                            next_options = get_options(daten1, next_col, {**selected_options, col: selected_options[col]})
+                            selected_options[next_col] = "" if selected_options[next_col] not in next_options else selected_options[next_col]
+            else:
+                selected_options[col] = options[0] if len(options) == 1 else ""
+
+        # Filter the data based on selected options
+        filtered_data = daten1.copy()
+        for col, value in selected_options.items():
+            if value != "":
+                filtered_data = filtered_data[filtered_data[col] == value]
+
+        # Display the filtered data
+        st.write(filtered_data)
+
+
+    
+
+
+
 
 
 
