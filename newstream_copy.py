@@ -100,11 +100,11 @@ def write_main_page():
         myvariables3 = st.radio("Primarily affected layer?", list(myvariabledict3.keys()))
         myvariable3 = myvariabledict3[myvariables3]
 
-    def reduce_dims (daten1):
+    def reduce_dims (daten1, index):
         daten1 = daten1.loc[:, daten1.nunique() >= 2]
         liste = daten1.columns.tolist()
         liste1 = liste[1::]
-        zufallswert = random.choice(liste1)
+        zufallswert = liste1[index]                        #random.choice(liste1)
         unique_values = list(set(daten1[f'{zufallswert}']))
         daten1 = daten1[1::]       #.drop('Name', axis=1)
         
@@ -183,10 +183,12 @@ def write_main_page():
         daten = create_df()
         daten1 = daten[daten['Primarily affected layer'] == 'epi']
         target = daten1['Name'].values
+        index = 0
 
-        while len(target) > 1:
+        if len(target) > 1:
         
-            zufallswert, unique_values, daten1 = reduce_dims(daten1)
+            zufallswert, unique_values, daten1 = reduce_dims(daten1, index)
+            index = index + 1
 
             
             selected_option = SelectBox(zufallswert, unique_values).render()
@@ -198,10 +200,52 @@ def write_main_page():
             target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
             global target3
             target3 = str(target2)
+            
+            if len(target) > 1: 
+                zufallswert, unique_values, daten1 = reduce_dims(daten1, index)
+                index = index + 1
+
+            
+                selected_option = SelectBox(zufallswert, unique_values).render()
+
+                daten1 = daten[daten['Primarily affected layer'] == 'epi']
+                daten2 = daten1[daten1[f'{zufallswert}'] == f'{selected_option}']
+                target2 = daten2['Name'].values
+                target = target2
+                target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+                target3 = str(target2)
+
+                if len(target) > 1: 
+                    zufallswert, unique_values, daten1 = reduce_dims(daten1, index)
+                    index = index + 1
+
+                
+                    selected_option = SelectBox(zufallswert, unique_values).render()
+
+                    daten1 = daten[daten['Primarily affected layer'] == 'epi']
+                    daten2 = daten1[daten1[f'{zufallswert}'] == f'{selected_option}']
+                    target2 = daten2['Name'].values
+                    target = target2
+                    target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+                    target3 = str(target2)
+                    if len(target) > 1: 
+                        zufallswert, unique_values, daten1 = reduce_dims(daten1, index)
+
+                    
+                        selected_option = SelectBox(zufallswert, unique_values).render()
+
+                        daten1 = daten[daten['Primarily affected layer'] == 'epi']
+                        daten2 = daten1[daten1[f'{zufallswert}'] == f'{selected_option}']
+                        target2 = daten2['Name'].values
+                        target = target2
+                        target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
+                        target3 = str(target2)
+                        
+
 
 
         
-        st.success ("So far possible solutions for your inputs are: {}".format(target2))
+        st.success ("So far possible solutions for your inputs are: {}".format(target3))
 
 
 
