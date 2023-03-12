@@ -202,28 +202,28 @@ def write_main_page():
             target3 = str(target2)
             
             if len(target) > 1: 
-                zufallswert, unique_values, daten1 = reduce_dims(daten1, index)
+                zufallswert, unique_values, daten2 = reduce_dims(daten2, index)
                 index = index + 1
 
             
                 selected_option = SelectBox(zufallswert, unique_values).render()
 
-                daten1 = daten[daten['Primarily affected layer'] == 'epi']
-                daten2 = daten1[daten1[f'{zufallswert}'] == f'{selected_option}']
+                #daten1 = daten[daten['Primarily affected layer'] == 'epi']
+                daten2 = daten2[daten2[f'{zufallswert}'] == f'{selected_option}']
                 target2 = daten2['Name'].values
                 target = target2
                 target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
                 target3 = str(target2)
 
                 if len(target) > 1: 
-                    zufallswert, unique_values, daten1 = reduce_dims(daten1, index)
+                    zufallswert, unique_values, daten2 = reduce_dims(daten1, index)
                     index = index + 1
 
                 
                     selected_option = SelectBox(zufallswert, unique_values).render()
 
-                    daten1 = daten[daten['Primarily affected layer'] == 'epi']
-                    daten2 = daten1[daten1[f'{zufallswert}'] == f'{selected_option}']
+                    #daten1 = daten[daten['Primarily affected layer'] == 'epi']
+                    daten2 = daten2[daten2[f'{zufallswert}'] == f'{selected_option}']
                     target2 = daten2['Name'].values
                     target = target2
                     target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
@@ -234,8 +234,8 @@ def write_main_page():
                     
                         selected_option = SelectBox(zufallswert, unique_values).render()
 
-                        daten1 = daten[daten['Primarily affected layer'] == 'epi']
-                        daten2 = daten1[daten1[f'{zufallswert}'] == f'{selected_option}']
+                        #aten1 = daten[daten['Primarily affected layer'] == 'epi']
+                        daten2 = daten2[daten2[f'{zufallswert}'] == f'{selected_option}']
                         target2 = daten2['Name'].values
                         target = target2
                         target2 = str(target2).replace("[", "").replace("]", "").replace("'", "")
